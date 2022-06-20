@@ -8,11 +8,17 @@ float upperBound;
 float sum;
 float integral;
 float coefficient;
-int power;
+float power;
 int option;
 float input;
 float switch1;
 float switch2;
+int accuracy;
+float currentposition;
+float currentvalue;
+float total;
+float increment;
+int accuracyOption;
 // End Global Variables
 //Functions
 void calculateIntegral() {
@@ -40,10 +46,24 @@ void calculateIntegral() {
     /*End function for 2 and start function for 3*/
     if (option == 3){
         /*Goal is to ask for accuracy amount, then depending on accuracy needs divide the (upperbound-lowerbound) into thousands of small sections and get a riemann summation. These sums can be dynamically adjusted since i can use the upperbound-lowerbound as the baseline*/
+        cout << "Choose accuracy 1-4. The number represents trailing zeroes" << endl;
+        cin >> accuracy;
+        if (accuracy == 1){accuracyOption = 10;}
+        if (accuracy == 2){accuracyOption = 100;}
+        if (accuracy == 3){accuracyOption = 1000;}
+        if (accuracy == 4){accuracyOption = 10000;}
+        cout << "Exponent: ";
         cin >> power;
-        cout << pow(lowerBound, power);
-
+        increment = (upperBound - lowerBound) / accuracyOption;
+        currentposition = lowerBound + ((upperBound - lowerBound) / (accuracyOption * 2));
+        for (int i = 0; i < accuracyOption; i++){
+            currentvalue = increment * pow(currentposition, power);
+            total += currentvalue;
+            currentposition += increment;
+        }
+        cout << total;
         
+/*        cout << pow(lowerBound, power);*/
     }
 }
 // Main Function
