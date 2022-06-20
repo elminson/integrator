@@ -1,24 +1,25 @@
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 // End header inclusions
 // Start Global Variables
-float lowerBound;
-float upperBound;
-float sum;
-float integral;
-float coefficient;
-float power;
-int option;
-float input;
-float switch1;
-float switch2;
-int accuracy;
-float currentposition;
-float currentvalue;
-float total;
-float increment;
-int accuracyOption;
+long double lowerBound;
+long double upperBound;
+long double sum;
+long double integral;
+long double coefficient;
+long double power;
+long double option;
+long double input;
+long double switch1;
+long double switch2;
+long double accuracy;
+long double currentposition;
+long double currentvalue;
+long double total;
+long double increment;
+long double accuracyOption;
 // End Global Variables
 //Functions
 void calculateIntegral() {
@@ -41,17 +42,13 @@ void calculateIntegral() {
     if (option == 2){
         cout << "Slope: ";
         cin >> input;
-        cout << (((input * lowerBound) + (input * upperBound)) / 2) * (upperBound - lowerBound) << endl;
+        cout << (((input * lowerBound) + (input * upperBound)) / 2.0) * (upperBound - lowerBound) << endl;
     }
     /*End function for 2 and start function for 3*/
     if (option == 3){
-        /*Goal is to ask for accuracy amount, then depending on accuracy needs divide the (upperbound-lowerbound) into thousands of small sections and get a riemann summation. These sums can be dynamically adjusted since i can use the upperbound-lowerbound as the baseline*/
-        cout << "Choose accuracy 1-4. The number represents trailing zeroes" << endl;
+        cout << "Choose accuracy 1-10: ";
         cin >> accuracy;
-        if (accuracy == 1){accuracyOption = 10;}
-        if (accuracy == 2){accuracyOption = 100;}
-        if (accuracy == 3){accuracyOption = 1000;}
-        if (accuracy == 4){accuracyOption = 10000;}
+        accuracyOption = accuracy * 10.0;
         cout << "Exponent: ";
         cin >> power;
         increment = (upperBound - lowerBound) / accuracyOption;
@@ -61,7 +58,7 @@ void calculateIntegral() {
             total += currentvalue;
             currentposition += increment;
         }
-        cout << total;
+        cout << setprecision(10) << total;
         
 /*        cout << pow(lowerBound, power);*/
     }
