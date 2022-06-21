@@ -20,6 +20,10 @@ long double currentvalue;
 long double total;
 long double increment;
 long double accuracyOption;
+long double funcCoefficient;
+string again;
+string base;
+long double logBase;
 // End Global Variables
 //Functions
 void calculateIntegral() {
@@ -30,24 +34,31 @@ void calculateIntegral() {
     cout << "Option 4: Logarithmic Function" << endl;
     cout << "Option 5: Trigonometric Function/Reciprocal" << endl;
     cout << "Option 6: Inverse Trigonometric Function" << endl;
-    cout << "Option 7: Finish" << endl;
     cout << "After all others, absolute value functions will be added" << endl;
     cin >> option;
     /*Function for selected option 1*/
     if (option == 1){
-        cin >> input;
-        cout << input * (upperBound - lowerBound) << endl;
+        cin >> input; 
+        total = input * (upperBound - lowerBound);
+        sum += total;
+        cout << total << endl;
+        total = 0;
     }
     /*End funtion for 1 and start function for 2*/
     if (option == 2){
         cout << "Slope: ";
         cin >> input;
-        cout << (((input * lowerBound) + (input * upperBound)) / 2.0) * (upperBound - lowerBound) << endl;
+        total = (((input * lowerBound) + (input * upperBound)) / 2.0) * (upperBound - lowerBound);
+        sum += total;
+        cout << total << endl;
+        total = 0;
     }
     /*End function for 2 and start function for 3*/
     if (option == 3){
-        cout << "Choose accuracy 1-10: ";
+        cout << "Choose accuracy 1-100: ";
         cin >> accuracy;
+        cout << "Coefficient: ";
+        cin >> coefficient;
         accuracyOption = accuracy * 10.0;
         cout << "Exponent: ";
         cin >> power;
@@ -58,10 +69,42 @@ void calculateIntegral() {
             total += currentvalue;
             currentposition += increment;
         }
-        cout << setprecision(10) << total;
-        
+        total *= coefficient;
+        cout << setprecision(10) << total << endl;
+        sum += total;
+        total = 0;
 /*        cout << pow(lowerBound, power);*/
     }
+    if (option == 4){
+        cout << "What is the coefficient of the function? ";
+        cin >> funcCoefficient;
+        cout << "What is the coefficient inside the brackets? ";
+        cin >> coefficient;
+        cout << "Choose Accuracy 1-100: ";
+        cin >> accuracy;
+        cout << "Logarithm Base:" << endl << "Is it a natural logarithm? (y/n): ";
+        cin >> base;
+        if (base == "y"){logBase = 2.71828182845904523;}
+        else{
+            cout << "Base: ";
+            cin >> logBase;
+        }
+        accuracyOption = accuracy * 10.0;
+        increment = ((upperBound - lowerBound) * coefficient) / accuracyOption;
+        currentposition = (lowerBound * coefficient) + increment / 2;
+        for (int i = 0; i < accuracyOption; i++){
+            currentvalue = (log2(currentposition) / log2(logBase)) * increment;
+            total += currentvalue;
+            currentposition += increment;
+        }
+        total /= coefficient;
+        total *= funcCoefficient;
+        cout << setprecision(10) << total << endl;
+        sum += total;
+        total = 0;
+    }
+    cout << "Again? ";
+    cin >> again;
 }
 // Main Function
 int main() {
@@ -73,8 +116,10 @@ int main() {
         upperBound = switch1;
         lowerBound = switch2;
     }
+    do{
     calculateIntegral();
-    
+    } while ((again == "yes") || (again == "Yes") || (again == "YES") || (again == "Y") || (again == "y"));
+    cout << "The total of the integral for the equation you provided is " << sum << endl;
     return 0;
 }
 
