@@ -1,3 +1,9 @@
+//
+//  main.cpp
+//  integrator
+//
+//  Created by Tejas Patel on 6/21/22.
+//
 #include <cmath>
 #include <iostream>
 #include <iomanip>
@@ -10,7 +16,8 @@ long double sum;
 long double integral;
 long double coefficient;
 long double power;
-long double option;
+int option;
+int trigonometricOption;
 long double input;
 long double switch1;
 long double switch2;
@@ -21,13 +28,14 @@ long double total;
 long double increment;
 long double accuracyOption;
 long double funcCoefficient;
+long double e = 2.71828182845904523;
 string again;
 string base;
 long double logBase;
 // End Global Variables
 //Functions
-void calculateIntegral() {
-	/*List of options*/
+void calculateIntegral(){
+    /*List of options*/
     cout << "Option 1: Constant" << endl;
     cout << "Option 2: Linear Function" << endl;
     cout << "Option 3: Exponential Function" << endl;
@@ -38,7 +46,7 @@ void calculateIntegral() {
     cin >> option;
     /*Function for selected option 1*/
     if (option == 1){
-        cin >> input; 
+        cin >> input;
         total = input * (upperBound - lowerBound);
         sum += total;
         cout << total << endl;
@@ -73,8 +81,9 @@ void calculateIntegral() {
         cout << setprecision(10) << total << endl;
         sum += total;
         total = 0;
-/*        cout << pow(lowerBound, power);*/
+        /*        cout << pow(lowerBound, power);*/
     }
+    /* Option 4 function works but there are many more options to add so work is not done */
     if (option == 4){
         cout << "What is the coefficient of the function? ";
         cin >> funcCoefficient;
@@ -103,12 +112,77 @@ void calculateIntegral() {
         sum += total;
         total = 0;
     }
-    cout << "Again? ";
-    cin >> again;
-}
-// Main Function
-int main() {
-	cout << "Lower bound: "; cin >> lowerBound;
+    if (option == 5){
+        cout << "Option 1: Sine" << endl;
+        cout << "Option 2: Cosine" << endl;
+        cout << "Option 3: Tangent" << endl;
+        cout << "Option 4: Cosecant" << endl;
+        cout << "Option 5: Secant" << endl;
+        cout << "Option 6: Cotangent" << endl;
+        cout << "Option 7: Sine Squared" << endl;
+        cout << "Option 8: Cosine Squared" << endl;
+        cout << "Option 9: Tangent Squared" << endl;
+        cout << "Option 10: Cosecant Squared" << endl;
+        cout << "Option 11: Secant Squared" << endl;
+        cout << "Option 12: Cotangent Squared" << endl;
+        cout << "Your choice: ";
+        cin >> trigonometricOption;
+        cout << "What is the coefficient of the function? ";
+        cin >> funcCoefficient;
+        cout << "What is the coefficient inside the brackets? ";
+        cin >> coefficient;
+        accuracyOption = 100000000;
+        increment = ((upperBound - lowerBound) * coefficient) / accuracyOption;
+        currentposition = (lowerBound * coefficient) + increment / 2;
+        
+        if (trigonometricOption == 1){
+            for (int i = 0; i < accuracyOption; i++){
+                currentvalue = (sin(currentposition)) * increment;
+                total += currentvalue;
+                currentposition += increment;
+            }
+        }
+        if (trigonometricOption == 2){
+            for (int i = 0; i < accuracyOption; i++){
+                currentvalue = (cos(currentposition)) * increment;
+                total += currentvalue;
+                currentposition += increment;
+            }
+        }
+        if (trigonometricOption == 3){
+            currentvalue = ((((-1 * funcCoefficient / coefficient) * (log2(cos(coefficient * upperBound)) / log2(e)))) - (((-1 * funcCoefficient / coefficient) * (log2(cos(coefficient * lowerBound)) / log2(e)))));
+            sum += currentvalue;
+            cout << setprecision(10) << currentvalue;
+        }
+        if (trigonometricOption == 4){
+            for (int i = 0; i < accuracyOption; i++){
+                currentvalue = (1/(sin(currentposition))) * increment;
+                total += currentvalue;
+                currentposition += increment;
+                
+            }
+        }
+            
+            /*for (int i = 0; i < accuracyOption; i++){
+             currentvalue = (sin(currentposition)) * increment;
+             total += currentvalue;
+             currentposition += increment;
+             }*/
+            
+            
+            total /= coefficient;
+            total *= funcCoefficient;
+            cout << setprecision(10) << total << endl;
+            sum += total;
+            total = 0;
+        }
+        cout << "Again? ";
+        cin >> again;
+    }
+    // Main Function
+int main(){
+    cout << tan(4) << endl << sin(4)/cos(4) << endl;
+    cout << "Lower bound: "; cin >> lowerBound;
     cout << "Upper bound: "; cin >> upperBound;
     if (upperBound < lowerBound){
         switch1 = lowerBound;
@@ -117,7 +191,7 @@ int main() {
         lowerBound = switch2;
     }
     do{
-    calculateIntegral();
+        calculateIntegral();
     } while ((again == "yes") || (again == "Yes") || (again == "YES") || (again == "Y") || (again == "y"));
     cout << "The total of the integral for the equation you provided is " << sum << endl;
     return 0;
