@@ -33,9 +33,8 @@ string again;
 string base;
 long double logBase;
 // End Global Variables
-//Functions
-void calculateIntegral(){
-    /*List of options*/
+
+void menu(){
     cout << "Option 1: Constant" << endl;
     cout << "Option 2: Linear Function" << endl;
     cout << "Option 3: Exponential Function" << endl;
@@ -43,23 +42,54 @@ void calculateIntegral(){
     cout << "Option 5: Trigonometric Function/Reciprocal" << endl;
     cout << "Option 6: Inverse Trigonometric Function" << endl;
     cout << "After all others, absolute value functions will be added" << endl;
+}
+
+void menu_option_five(){
+    cout << "Option 1: Sine" << endl;
+    cout << "Option 2: Cosine" << endl;
+    cout << "Option 3: Tangent" << endl;
+    cout << "Option 4: Cosecant" << endl;
+    cout << "Option 5: Secant" << endl;
+    cout << "Option 6: Cotangent" << endl;
+    cout << "Option 7: Sine Squared" << endl;
+    cout << "Option 8: Cosine Squared" << endl;
+    cout << "Option 9: Tangent Squared" << endl;
+    cout << "Option 10: Cosecant Squared" << endl;
+    cout << "Option 11: Secant Squared" << endl;
+    cout << "Option 12: Cotangent Squared" << endl;
+    cout << "Your choice: ";
+}
+
+void sine(){
+    cin >> input;
+    total = input * (upperBound - lowerBound);
+    sum += total;
+    cout << total << endl;
+    total = 0;
+}
+
+void Cosine(){
+    cout << "Slope: ";
+    cin >> input;
+    total = (((input * lowerBound) + (input * upperBound)) / 2.0) * (upperBound - lowerBound);
+    sum += total;
+    cout << total << endl;
+    total = 0;
+
+}
+
+//Functions
+void calculateIntegral(){
+    /*List of options*/
+    menu();
     cin >> option;
     /*Function for selected option 1*/
     if (option == 1){
-        cin >> input;
-        total = input * (upperBound - lowerBound);
-        sum += total;
-        cout << total << endl;
-        total = 0;
+        sine();
     }
     /*End funtion for 1 and start function for 2*/
     if (option == 2){
-        cout << "Slope: ";
-        cin >> input;
-        total = (((input * lowerBound) + (input * upperBound)) / 2.0) * (upperBound - lowerBound);
-        sum += total;
-        cout << total << endl;
-        total = 0;
+        Cosine();
     }
     /*End function for 2 and start function for 3*/
     if (option == 3){
@@ -113,19 +143,7 @@ void calculateIntegral(){
         total = 0;
     }
     if (option == 5){
-        cout << "Option 1: Sine" << endl;
-        cout << "Option 2: Cosine" << endl;
-        cout << "Option 3: Tangent" << endl;
-        cout << "Option 4: Cosecant" << endl;
-        cout << "Option 5: Secant" << endl;
-        cout << "Option 6: Cotangent" << endl;
-        cout << "Option 7: Sine Squared" << endl;
-        cout << "Option 8: Cosine Squared" << endl;
-        cout << "Option 9: Tangent Squared" << endl;
-        cout << "Option 10: Cosecant Squared" << endl;
-        cout << "Option 11: Secant Squared" << endl;
-        cout << "Option 12: Cotangent Squared" << endl;
-        cout << "Your choice: ";
+        menu_option_five();
         cin >> trigonometricOption;
         cout << "What is the coefficient of the function? ";
         cin >> funcCoefficient;
@@ -181,6 +199,7 @@ void calculateIntegral(){
     }
     // Main Function
 int main(){
+    
     cout << tan(4) << endl << sin(4)/cos(4) << endl;
     cout << "Lower bound: "; cin >> lowerBound;
     cout << "Upper bound: "; cin >> upperBound;
